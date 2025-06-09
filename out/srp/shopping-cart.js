@@ -28,7 +28,7 @@ var ShoppingCart = /** @class */ (function () {
             return;
         }
         this.orderStatus = 'closed';
-        this.sendMessage('Seu pedido foi recebido.');
+        this.sendMessage("Seu pedido com total de ".concat(this.total(), " foi recebido."));
         this.saveOrder();
         this.clear();
     };

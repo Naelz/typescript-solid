@@ -27,7 +27,7 @@ export class ShoppingCart{
     }
 
     this.orderStatus = 'closed'
-    this.sendMessage('Seu pedido foi recebido.');
+    this.sendMessage(`Seu pedido com total de ${this.total()} foi recebido.`);
     this.saveOrder();
     this.clear();
 
