@@ -2,6 +2,7 @@ type CartItem = { name: string, price: number };
 
 export class ShoppingCart{
   private readonly _items: CartItem[] = [];
+  private orderStatus: 'open' | 'closed' = 'open';
 
   addItem(item: CartItem): void {
     this._items.push(item);
@@ -24,7 +25,9 @@ export class ShoppingCart{
       console.log('Seu pedido foi recebido.');
       return
     }
-    this.sendMessage('Seu pedido foi recebido');
+
+    this.orderStatus = 'closed'
+    this.sendMessage('Seu pedido foi recebido.');
     this.saveOrder();
     this.clear();
 
@@ -36,7 +39,7 @@ export class ShoppingCart{
   }
 
   sendMessage(msg: string): void{
-    console.log('Mensagem enviada', msg);
+    console.log('Mensagem enviada:', msg);
   }
 
   saveOrder(): void{
@@ -55,7 +58,6 @@ shoppingCart.addItem({name: 'Camiseta', price: 49.91});
 shoppingCart.addItem({name: 'Caderno', price: 9.9123});
 shoppingCart.addItem({name: 'Lápis', price: 1.59});
 
-
 console.log(shoppingCart.items);
 console.log(shoppingCart.total());
-console.log(shoppingCart.checkout());
+shoppingCart.checkout();
