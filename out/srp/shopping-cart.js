@@ -4,7 +4,7 @@ exports.ShoppingCart = void 0;
 var ShoppingCart = /** @class */ (function () {
     function ShoppingCart() {
         this._items = [];
-        this.orderStatus = 'open';
+        this._orderStatus = 'open';
     }
     ShoppingCart.prototype.addItem = function (item) {
         this._items.push(item);
@@ -27,7 +27,7 @@ var ShoppingCart = /** @class */ (function () {
             console.log('Seu pedido foi recebido.');
             return;
         }
-        this.orderStatus = 'closed';
+        this._orderStatus = 'closed';
         this.sendMessage("Seu pedido com total de ".concat(this.total(), " foi recebido."));
         this.saveOrder();
         this.clear();
@@ -48,11 +48,4 @@ var ShoppingCart = /** @class */ (function () {
     return ShoppingCart;
 }());
 exports.ShoppingCart = ShoppingCart;
-var shoppingCart = new ShoppingCart();
-shoppingCart.addItem({ name: 'Camiseta', price: 49.91 });
-shoppingCart.addItem({ name: 'Caderno', price: 9.9123 });
-shoppingCart.addItem({ name: 'Lápis', price: 1.59 });
-console.log(shoppingCart.items);
-console.log(shoppingCart.total());
-shoppingCart.checkout();
 //# sourceMappingURL=shopping-cart.js.map
