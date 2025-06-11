@@ -1,10 +1,15 @@
 import { Messaging } from "./services/messaging";
-import { Order } from "./entities/order";
+import { Order } from "./classes/order";
 import { Persistency } from "./services/persistency";
-import { Product } from "./entities/product";
-import { ShoppingCart } from "./entities/shopping-cart";
+import { Product } from "./classes/product";
+import { ShoppingCart } from "./classes/shopping-cart";
+import { FiftyPercentDiscount, NoDiscount, TenPercentDiscount, ThirtyPercentDiscount } from "./classes/discount";
 
-const shoppingCart = new ShoppingCart();
+const fiftyPercentDiscount = new FiftyPercentDiscount();
+const tenPercentDiscount = new TenPercentDiscount();
+const thirtyPercentDiscount = new ThirtyPercentDiscount();
+const noDiscount = new NoDiscount();
+const shoppingCart = new ShoppingCart(noDiscount);
 const messaging = new Messaging();
 const persistency = new Persistency();
 const order =  new Order(shoppingCart, messaging, persistency);
@@ -15,6 +20,6 @@ shoppingCart.addItem(new Product('Lápis', 1.59));
 
 console.log(shoppingCart.items);
 console.log(shoppingCart.total());
-console.log(shoppingCart.totalWithDiscount(0.5));
+console.log(shoppingCart.totalWithDiscount());
 order.checkout();
 console.log(order.orderStatus)
