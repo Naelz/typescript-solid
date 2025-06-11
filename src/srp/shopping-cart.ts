@@ -1,9 +1,7 @@
 import { CartItem } from "./interfaces/cart-item";
-import { OrderStatus } from "./interfaces/order-status";
 
 export class ShoppingCart{
   private readonly _items: CartItem[] = [];
-  private _orderStatus: OrderStatus = 'open';
 
   addItem(item: CartItem): void {
     this._items.push(item);
@@ -21,30 +19,8 @@ export class ShoppingCart{
     return +this._items.reduce((total, next) => total + next.price, 0).toFixed(2)
   }
 
-  checkout(): void {
-    if(this.isEmpty()){
-      console.log('Seu pedido foi recebido.');
-      return
-    }
-
-    this._orderStatus = 'closed'
-    this.sendMessage(`Seu pedido com total de ${this.total()} foi recebido.`);
-    this.saveOrder();
-    this.clear();
-
-  }
-
-
   isEmpty(): boolean {
     return this._items.length === 0;
-  }
-
-  sendMessage(msg: string): void {
-    console.log('Mensagem enviada:', msg);
-  }
-
-  saveOrder(): void {
-    console.log('Pedido salvo com sucesso...');
   }
 
   clear(): void {
