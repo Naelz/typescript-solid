@@ -1,14 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
-Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem
-depender de abstrações.
-Dependa de abstrações, não de implementações.
-Abstrações não devem depender de detalhes. Detalhes devem depender
-de abstrações.
-
-Classes de baixo nível são classes que executam tarefas (os detalhes)
-Classes de alto nível são classes que gerenciam as classes de baixo nível.
+Interface segregation principle (Princípio da segregação de Interface) -
+os clientes não devem ser forçados a depender de types, interfaces ou membros
+abstratos que não utilizam
 */
 var messaging_1 = require("./services/messaging");
 var order_1 = require("./classes/order");
@@ -26,7 +21,16 @@ var messaging = new messaging_1.Messaging();
 var persistency = new persistency_1.Persistency();
 var individualCustomer = new customer_1.IndividualCustomer('Nathan', 'Santos', '000.111.000-11');
 var enterpriseCustomer = new customer_1.EnterpriseCustomer('ISP SOLUTION', '00011100011/0001');
-var order = new order_1.Order(shoppingCart, messaging, persistency, enterpriseCustomer);
+var MessagingMock = /** @class */ (function () {
+    function MessagingMock() {
+    }
+    MessagingMock.prototype.sendMessage = function () {
+        console.log('A mensagem foi enviada pelo MOCK.');
+    };
+    return MessagingMock;
+}());
+var messagingMock = new MessagingMock();
+var order = new order_1.Order(shoppingCart, messagingMock, persistency, enterpriseCustomer);
 shoppingCart.addItem(new product_1.Product('Camiseta', 49.91));
 shoppingCart.addItem(new product_1.Product('Caderno', 9));
 shoppingCart.addItem(new product_1.Product('Lápis', 1.59));
